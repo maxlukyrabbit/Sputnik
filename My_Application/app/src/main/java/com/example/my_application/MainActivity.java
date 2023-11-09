@@ -43,22 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.editTextText);
 
-        Button button = findViewById(R.id.button3);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-                // Set up the NFC intent filter and pending intent
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-                IntentFilter[] intentFiltersArray = new IntentFilter[]{new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)};
-
-                // Enable foreground dispatch to handle the NFC intent
-                nfcAdapter.enableForegroundDispatch(MainActivity.this, pendingIntent, intentFiltersArray, null);
-            }
-        });
 
         Button button1 = findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener(){
