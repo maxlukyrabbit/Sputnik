@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My_Application</string>
+    <string name="app_name">SK-Warranty</string>
     <string name="button1" >Принята на склад</string>
     <string name="button2">Готово к отправке</string>
     <string name="button3">Поднисите телефон к NFC метке для сканирования</string>
