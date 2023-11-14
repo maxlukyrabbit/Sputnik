@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NfcAdapter nfcAdapter;
     private EditText editText;
+    private TextView ID, Status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
         nfcAdapter = NfcAdapter.getDefaultAdapter(MainActivity.this);
         if (nfcAdapter == null) {
             Toast.makeText(MainActivity.this, "NFC is not available", Toast.LENGTH_LONG).show();
-            finish();
             return;
         }
 
         editText = findViewById(R.id.editTextText);
+        ID = findViewById(R.id.ID);
+        Status = findViewById(R.id.Status);
+
 
 
 
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -60,18 +65,27 @@ public class MainActivity extends AppCompatActivity {
                         String id_panal = editText.getText().toString();
                         if (id_panal.trim().length() == 10) {
                             String id_deal = Search_deal.search_deal(id_panal);
-                            return Change_stage.Change_stage(id_deal, "C25:EXECUTING");
+                            return Change_stage.Accepted_warehouse(id_deal);
                         }
                             return "Введите корректный номер панели ";
                         }
 
-
-
                     @Override
                     protected void onPostExecute(String result) {
-                        Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+                        ID.setText(editText.getText());
+                        if ("Успех".equals(result)){
+                            Status.setText("Успех");
+                        }
+                        else{
+                            Status.setText("Ошибка");
+                        }
+                         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
                     }
                 }.execute();
+
+
+
+
             }
         });
 
@@ -90,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         String id_panal = editText.getText().toString();
                         if (id_panal.trim().length() == 10) {
                             String id_deal = Search_deal.search_deal(id_panal);
-                            return Change_stage.Change_stage(id_deal, "C25:7");
+                            return Change_stage.Done_sending(id_deal);
                         }
                         return "Введите корректный номер панели ";
                     }
@@ -98,11 +112,61 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void onPostExecute(String result) {
+                        ID.setText(editText.getText());
+                        if ("Успех".equals(result)){
+                            Status.setText("Успех");
+                        }
+                        else{
+                            Status.setText("Ошибка");
+                        }
                         Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
                     }
                 }.execute();
+
+
             }
         });
+
+        Button Repair = findViewById(R.id.Repair);
+        Repair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+                IntentFilter[] intentFiltersArray = new IntentFilter[]{new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)};
+                nfcAdapter.enableForegroundDispatch(MainActivity.this, pendingIntent, intentFiltersArray, null);
+                new AsyncTask<Void, Void, String>() {
+                    @Override
+                    protected String doInBackground(Void... voids) {
+                        String id_panal = editText.getText().toString();
+                        if (id_panal.trim().length() == 10) {
+                            String id_deal = Search_deal.search_deal(id_panal);
+
+                            return Change_stage.Under_repair(id_deal);
+                        }
+                        return "Введите корректный номер панели ";
+                    }
+
+
+                    @Override
+                    protected void onPostExecute(String result) {
+                        ID.setText(editText.getText());
+                        if ("Успех".equals(result)){
+                            Status.setText("Успех");
+                        }
+                        else{
+                            Status.setText("Ошибка");
+                        }
+                        Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+                    }
+                }.execute();
+
+
+            }
+        });
+
+
 
     }
 

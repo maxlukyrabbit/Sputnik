@@ -8,6 +8,17 @@
     tools:context=".MainActivity">
 
 
+    <RelativeLayout
+        android:id="@+id/firsit"
+        android:layout_width="401dp"
+        android:layout_height="85dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/track_number2"
         android:layout_width="245dp"
@@ -57,7 +68,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        />
+
 
     <TextView
         android:id="@+id/Master"
