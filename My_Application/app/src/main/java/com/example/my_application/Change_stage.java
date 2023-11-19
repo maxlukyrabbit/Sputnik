@@ -15,7 +15,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
+
 public class Change_stage {
+
     public static String Change_stage(String id_deal, String id_stage){
         String result = "";
         if (id_deal.trim().length() != 5) {
@@ -44,6 +47,8 @@ public class Change_stage {
                 // Преобразование ответа в строку
                 String responseBody = response.body().string();
                 result = "Успех";
+
+
             }
 
         } catch (IOException e) {
@@ -86,30 +91,31 @@ public class Change_stage {
                 status = dealsArray.getString("STAGE_ID");
 
 
-            } //else {
-//                status = "Ошибка при выполнении запроса. Код ответа: " + responseCode;
-//            }
+            }
+            else {
+                status = "Ошибка при выполнении запроса. Код ответа: " + responseCode;
+            }
 
             // Закрытие соединения
             connection.disconnect();
         } catch (Exception e) {
             //e.printStackTrace();
-            //status = "Ошибка при выполнении";
+            status = "Ошибка при выполнении";
         }
         return status;
     }
 
-    public static String Accepted_warehouse(String id_deal) {
+    public static String Accepted_warehouse(String id_deal, String in_track_number) {
         String err = null;
         String result = null;
         String status = status(id_deal);
 
-        if (Objects.equals(status, "C25:NEW")) { // Новая заявка
-            result = (Change_stage(id_deal, "C25:EXECUTING"));
-        } else if (Objects.equals(status, "C25:PREPARATION")) { // Проверка заявки
-            result = (Change_stage(id_deal, "C25:EXECUTING"));
-        } else if (Objects.equals(status, "C25:PREPAYMENT_INVOIC")) { // Новая заявка
-            result = (Change_stage(id_deal, "C25:EXECUTING"));
+        if (Objects.equals(status, "C25:NEW") || Objects.equals(status, "C25:PREPARATION") || Objects.equals(status, "C25:PREPAYMENT_INVOIC")) {
+            result = Change_stage(id_deal, "C25:EXECUTING");
+            if ("Успех".equals(result))
+            {
+                change_track_number.change_in_track_number(id_deal, in_track_number);
+            }
         } else {
             result = "Завка находится в неподходящей стадии " + status;
         }
@@ -117,13 +123,17 @@ public class Change_stage {
 
     }
 
-    public static String Done_sending(String id_deal) {
+    public static String Done_sending(String id_deal, String out_track_number) {
         String err = null;
         String result = null;
         String status = status(id_deal);
 
         if (!"C25:LOSE".equals(status) && !"C25:APOLOGY".equals(status) && !"C25:WON".equals(status)) { // Заявка отменена
             result = (Change_stage(id_deal, "C25:7"));
+            if ("Успех".equals(result))
+            {
+                result = change_track_number.change_out_track_number(id_deal, out_track_number);
+            }
 
         }
         else {
@@ -137,21 +147,12 @@ public class Change_stage {
         String result = null;
         String status = status(id_deal);
 
-        if (Objects.equals(status, "C25:EXECUTING")) { // Принята на склад
-            result = (Change_stage(id_deal, "C25:2"));
-        } else if (Objects.equals(status, "C25:1")) { // Отложено
-            result = (Change_stage(id_deal, "C25:2"));
-        } else if (Objects.equals(status, "C25:2")) { // В ремонте
-            result = (Change_stage(id_deal, "C25:2"));
-        } else if (Objects.equals(status, "C25:FINAL_INVOICE")) { // Выходной контроль
-            result = (Change_stage(id_deal, "C25:2"));
-        } else if (Objects.equals(status, "C25:7")) { // Готово к отправке
-            result = (Change_stage(id_deal, "C25:2"));
-        } else if (Objects.equals(status, "C25:UC_DMZGI5")) { // Паркинг
-            result = (Change_stage(id_deal, "C25:2"));
+        if (Objects.equals(status, "C25:EXECUTING") || Objects.equals(status, "C25:1") || Objects.equals(status, "C25:2") || Objects.equals(status, "C25:FINAL_INVOICE") || Objects.equals(status, "C25:7") || Objects.equals(status, "C25:UC_DMZGI5")) {
+            result = Change_stage(id_deal, "C25:2");
         } else {
             result = "Завка находится в неподходящей стадии " + status;
         }
+
         return result;
     }
 }

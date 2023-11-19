@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">SK-Warranty</string>
-    <string name="button1" >Принята на склад</string>
+    <string name="button1">Принята на склад</string>
     <string name="button2">Готово к отправке</string>
     <string name="NFC_inf">Поднесите телефон к NFC метке или введите ID  домофона вручную.</string>
     <string name="text">Ввод номера панели</string>
-    <string name="track_number">Ввод трек номера панели</string>
+    <string name="track_number">Ввод трек номера панели(посылки)</string>
+    <string name="rb1">Изменить</string>
+    <string name="rb2">Получить</string>
 </resources>
