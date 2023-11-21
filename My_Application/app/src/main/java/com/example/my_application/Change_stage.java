@@ -1,5 +1,8 @@
 package com.example.my_application;
 
+import android.content.Context;
+import android.widget.EditText;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -18,6 +21,9 @@ import okhttp3.Response;
 
 
 public class Change_stage {
+
+
+    private static EditText editText;
 
     public static String Change_stage(String id_deal, String id_stage){
         String result = "";
@@ -105,7 +111,8 @@ public class Change_stage {
         return status;
     }
 
-    public static String Accepted_warehouse(String id_deal, String in_track_number) {
+    public static String Accepted_warehouse(String id_deal, String in_track_number, String id_panel, Context context) {
+
         String err = null;
         String result = null;
         String status = status(id_deal);
@@ -114,16 +121,24 @@ public class Change_stage {
             result = Change_stage(id_deal, "C25:EXECUTING");
             if ("Успех".equals(result))
             {
-                change_track_number.change_in_track_number(id_deal, in_track_number);
+                result = change_track_number.change_in_track_number(id_deal, in_track_number);
+
+
+
+                logsTXT.LogsWriter(context, "Успех:", id_panel, "Принято на склад");
             }
         } else {
+
             result = "Завка находится в неподходящей стадии " + status;
+
+            logsTXT.LogsWriter(context, "Ошибка", id_panel, "этап неподходящий.");
+
         }
         return result;
 
     }
 
-    public static String Done_sending(String id_deal, String out_track_number) {
+    public static String Done_sending(String id_deal, String out_track_number, String id_panel, Context context) {
         String err = null;
         String result = null;
         String status = status(id_deal);
@@ -133,24 +148,28 @@ public class Change_stage {
             if ("Успех".equals(result))
             {
                 result = change_track_number.change_out_track_number(id_deal, out_track_number);
+                logsTXT.LogsWriter(context, "Успех:", id_panel, "готово к отправке");
             }
 
         }
         else {
             result = "Завка находится в неподходящей стадии " + status;
+            logsTXT.LogsWriter(context, "Ошибка:", id_panel, "этап неподходящий.");
         }
         return result;
     }
 
-    public static String Under_repair(String id_deal) {
+    public static String Under_repair(String id_deal, String id_panel, Context context) {
         String err = null;
         String result = null;
         String status = status(id_deal);
 
         if (Objects.equals(status, "C25:EXECUTING") || Objects.equals(status, "C25:1") || Objects.equals(status, "C25:2") || Objects.equals(status, "C25:FINAL_INVOICE") || Objects.equals(status, "C25:7") || Objects.equals(status, "C25:UC_DMZGI5")) {
             result = Change_stage(id_deal, "C25:2");
+            logsTXT.LogsWriter(context, "Успех:", id_panel, "в ремонте");
         } else {
             result = "Завка находится в неподходящей стадии " + status;
+            logsTXT.LogsWriter(context, "Ошибка:", id_panel, "этап неподходящий.");
         }
 
         return result;

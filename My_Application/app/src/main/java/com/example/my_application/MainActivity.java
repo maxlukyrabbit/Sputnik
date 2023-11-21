@@ -43,20 +43,18 @@ public class MainActivity extends AppCompatActivity {
         Status = findViewById(R.id.Status);
 
 
-
-
         Button button1 = findViewById(R.id.button);
-        button1.setOnClickListener(new View.OnClickListener(){
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Change_stage("Accepted_warehouse");
             }
         });
 
         Button button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener(){
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Change_stage("Done_sending");
             }
         });
@@ -82,9 +80,12 @@ public class MainActivity extends AppCompatActivity {
                 NdefRecord record = messages[0].getRecords()[0];
                 String payload = new String(record.getPayload());
                 editText.setText(payload.substring(3));
+
             }
         }
     }
+
+    
 
     @Override
     protected void onPause() {
@@ -105,13 +106,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void  startLogs(View v)
-    {
+    public void startLogs(View v) {
         Intent intent = new Intent(this, logs.class);
         startActivity(intent);
     }
 
-    public void Change_stage(String method){
+    public void Change_stage(String method) {
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -127,30 +127,25 @@ public class MainActivity extends AppCompatActivity {
                 if (id_panal.trim().length() == 10) {
                     String id_deal = Search_deal.search_deal(id_panal);
                     if ("Accepted_warehouse".equals(method)) {
-                        if (in_track_number.length() == 20)
-                        {
-                            return Change_stage.Accepted_warehouse(id_deal, in_track_number);
-                        }
-                        else
-                        {
+                        if (in_track_number.length() == 20) {
+                            return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext());
+
+                        } else {
                             return "Введите корректный трек номер";
                         }
 
                     }
 
                     if ("Done_sending".equals(method)) {
-                        if (out_track_number.length() == 20)
-                        {
-                            return Change_stage.Done_sending(id_deal, out_track_number);
-                        }
-                        else
-                        {
+                        if (out_track_number.length() == 20) {
+                            return Change_stage.Done_sending(id_deal, out_track_number, id_panal, getApplicationContext());
+                        } else {
                             return "Введите корректный трек номер";
                         }
 
                     }
                     if ("Under_repair".equals(method)) {
-                        return Change_stage.Under_repair(id_deal);
+                        return Change_stage.Under_repair(id_deal, id_panal, getApplicationContext());
                     }
 
                 }
@@ -160,18 +155,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String result) {
                 ID.setText(editText.getText());
-                if ("Успех".equals(result)){
+                if ("Успех".equals(result)) {
                     Status.setText("Успех");
-                }
-                else{
+                } else {
                     Status.setText("Ошибка");
                 }
                 Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
             }
         }.execute();
     }
-
-
 
 
 }
