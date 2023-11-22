@@ -125,7 +125,7 @@ public class Change_stage {
 
 
 
-                logsTXT.LogsWriter(context, "Успех:", id_panel, "Принято на склад");
+                logsTXT.LogsWriter(context, "Успех:", id_panel, "принято на склад");
             }
         } else {
 

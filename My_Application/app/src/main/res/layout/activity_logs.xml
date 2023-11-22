@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".logs">
+
 
     <Button
         android:id="@+id/button3"
@@ -12,11 +14,13 @@
         android:layout_height="50dp"
         android:onClick="startMain"
         android:text="Назад"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:layout_constraintVertical_bias="0.97" />
 
     <Button
@@ -25,6 +29,7 @@
         android:layout_height="50dp"
         android:onClick="clearLogs"
         android:text="Очистить логи"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.933"
@@ -35,6 +40,7 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="328dp"
+        android:textColor="@color/white"
         android:layout_height="537dp"
         android:layout_marginTop="16dp"
         app:flow_horizontalAlign="center"

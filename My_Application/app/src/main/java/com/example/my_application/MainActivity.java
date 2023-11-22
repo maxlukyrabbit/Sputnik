@@ -3,6 +3,7 @@ package com.example.my_application;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(MainActivity.this);
         if (nfcAdapter == null) {
@@ -72,6 +74,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            NdefMessage[] messages = getNdefMessages(intent);
+            if (messages != null && messages.length > 0) {
+                NdefRecord record = messages[0].getRecords()[0];
+                String payload = new String(record.getPayload());
+                editText.setText(payload.substring(3));
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
     private NdefMessage[] getNdefMessages(Intent intent) {
         NdefMessage[] messages = null;
         Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -84,41 +106,6 @@ public class MainActivity extends AppCompatActivity {
         return messages;
     }
 
-    private void handleNfcIntent(Intent intent) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] messages = getNdefMessages(intent);
-            if (messages != null && messages.length > 0) {
-                NdefRecord record = messages[0].getRecords()[0];
-                String payload = new String(record.getPayload());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        editText.setText(payload.substring(3));
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        handleNfcIntent(intent);
-        nfcAdapter.enableForegroundDispatch(this, PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE), null, null);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        handleNfcIntent(intent);
-    }
 
 
 
@@ -174,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     }else {
-                        logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некоректный номер сделки");
+                        logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный номер сделки");
                         return "Некорректный номер сделки";
                     }
                 }
