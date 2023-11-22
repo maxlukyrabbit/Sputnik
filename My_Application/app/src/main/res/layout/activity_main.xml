@@ -10,244 +10,245 @@
 
     <RelativeLayout
         android:id="@+id/firsit"
-        android:layout_width="401dp"
-        android:layout_height="85dp"
-        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="#424242"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="285dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:background="#ffffff"
+            android:elegantTextHeight="false"
+            android:ems="10"
+            android:hint="@string/text"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="85dp"
+            android:text="Статус:"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+
+        <TextView
+            android:id="@+id/Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="86dp"
+            android:layout_toEndOf="@+id/ID"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintStart_toEndOf="@+id/ID"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+        <TextView
+            android:id="@+id/ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="7dp"
+
+            android:layout_marginTop="85dp"
+            android:layout_toEndOf="@+id/textView5"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:id="@+id/second"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:background="#5B5B5B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firsit">
+
+
+        <EditText
+            android:id="@+id/track_number1"
+            android:layout_width="285dp"
+            android:layout_height="55dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="65dp"
+            android:background="#ffffff"
+            android:ems="10"
+            android:hint="@string/track_number"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="330dp"
+            android:layout_height="65dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="77dp"
+            android:text="@string/button1"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:background="@drawable/rectangle_shape"
+            android:shadowColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.346"
+            tools:ignore="MissingConstraints" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Third"
+        android:layout_width="411dp"
+        android:layout_height="117dp"
+        android:background="#7D7D7D"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second">
+
+
+        <Button
+            android:id="@+id/Repair"
+            android:layout_width="330dp"
+            android:layout_height="65dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="41dp"
+            android:layout_marginEnd="41dp"
+            android:background="@drawable/rectangle_shape"
+            android:text="В ремонте"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.53"
+            tools:ignore="MissingConstraints" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/fifth"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#CFCFCF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/Logs"
+            android:layout_width="105dp"
+            android:layout_height="62dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/rectangle_shape"
+
+            android:onClick="startLogs"
+            android:text="Логи"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="246dp"
+            android:layout_height="64dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
+            android:text="@string/NFC_inf"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.038"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </RelativeLayout>
 
     <EditText
         android:id="@+id/track_number2"
-        android:layout_width="245dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/track_number"
-        android:inputType="text"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.224"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        app:layout_constraintVertical_bias="0.64" />
-
-
-    <Button
-        android:id="@+id/Repair"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/button"
-        android:text="В ремонте"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/button1"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346"
-        tools:ignore="MissingConstraints" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/Master"-->
-    <!--        android:layout_width="64dp"-->
-    <!--        android:layout_height="32dp"-->
-    <!--        android:text="Максим"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="16dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.365"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.449" />-->
-
-    <EditText
-        android:id="@+id/editTextText"
         android:layout_width="285dp"
-        android:layout_height="54dp"
+        android:layout_height="55dp"
         android:layout_marginTop="24dp"
         android:background="#ffffff"
-        android:elegantTextHeight="false"
-        android:ems="10"
-        android:hint="@string/text"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageFilterView6"
-        android:layout_width="358dp"
-        android:layout_height="11dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:srcCompat="@drawable/line_transformed2" />
-
-    <TextView
-        android:id="@+id/Status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toEndOf="@+id/ID"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <TextView
-        android:id="@+id/ID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Статус:"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageFilterView5"
-        android:layout_width="358dp"
-        android:layout_height="11dp"
-        android:layout_marginTop="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        app:srcCompat="@drawable/line_transformed2" />
-
-    <EditText
-        android:id="@+id/track_number1"
-        android:layout_width="245dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:background="#ffffff"
         android:ems="10"
         android:hint="@string/track_number"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        app:layout_constraintVertical_bias="0.074" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView2"-->
-    <!--        android:layout_width="64dp"-->
-    <!--        android:layout_height="32dp"-->
-    <!--        android:text="Мастер:"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="16dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.149"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.449" />-->
+        app:layout_constraintTop_toBottomOf="@+id/Third" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="330dp"
         android:layout_height="65dp"
-        android:backgroundTint="@color/button"
-        android:text="@string/button2"
+        android:layout_marginTop="88dp"
 
+        android:background="@drawable/rectangle_shape"
+
+        android:text="@string/button2"
         android:textColor="@color/black"
         android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.641"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833"
+        app:layout_constraintTop_toBottomOf="@+id/Third"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="255dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/NFC_inf"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/Logs"
-        android:layout_width="105dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/button"
-        android:onClick="startLogs"
-        android:text="Логи"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
-
-    <androidx.constraintlayout.utils.widget.ImageFilterView
-        android:id="@+id/imageFilterView7"
-        android:layout_width="358dp"
-        android:layout_height="11dp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Repair"
-        app:srcCompat="@drawable/line_transformed2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

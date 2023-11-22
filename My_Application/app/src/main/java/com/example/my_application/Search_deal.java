@@ -14,7 +14,7 @@ public class Search_deal {
 
         try {
             // URL для получения JSON
-            String urlString = "https://sputniksystems.bitrix24.ru/rest/879/igjz3ay62dj3ppzo/crm.deal.list.json?FILTER[UF_CRM_1629819273209]=" + id_panel.trim();
+            String urlString = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.list.json?FILTER[UF_CRM_1629819273209]=" + id_panel.trim();
 
             // Создание объекта URL
             URL url = new URL(urlString);

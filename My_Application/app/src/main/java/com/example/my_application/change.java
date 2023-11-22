@@ -12,7 +12,7 @@ public class change {
         String id1 = "";
         String stageId = "xzcfvghjk";
         try {
-            String url = "https://sputniksystems.bitrix24.ru/rest/879/igjz3ay62dj3ppzo/crm.deal.list.json?FILTER[UF_CRM_1629819273209]=2121124652";
+            String url = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.list.json?FILTER[UF_CRM_1629819273209]=2121124652";
 
             URL apiUrl = new URL(url);
 

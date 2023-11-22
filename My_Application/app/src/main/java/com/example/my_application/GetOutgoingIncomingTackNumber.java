@@ -12,7 +12,7 @@ public class GetOutgoingIncomingTackNumber {
         String TackNumber = null;
         try {
             // URL для получения JSON
-            String urlString = "https://sputniksystems.bitrix24.ru/rest/879/igjz3ay62dj3ppzo/crm.deal.get.json?id="+id_deal;
+            String urlString = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.get.json?id="+id_deal;
 
             // Создание объекта URL
             URL url = new URL(urlString);

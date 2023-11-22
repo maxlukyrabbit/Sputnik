@@ -57,7 +57,7 @@ public class change_track_number {
 
         try {
             // URL и JSON-запрос
-            String url = "https://sputniksystems.bitrix24.ru/rest/879/hpyrfpxem514tmr4/crm.deal.update.json";
+            String url = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.update.json";
             String json = "{\"id\": " + id_deal + ", \"fields\": {\"UF_CRM_1693292930596\": \"" + out_track_number + "\"}}";
 
             // Создание запроса POST

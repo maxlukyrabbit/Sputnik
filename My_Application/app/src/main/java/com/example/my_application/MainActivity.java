@@ -6,6 +6,8 @@ import android.content.IntentFilter;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -70,29 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] messages = getNdefMessages(intent);
-            if (messages != null && messages.length > 0) {
-                NdefRecord record = messages[0].getRecords()[0];
-                String payload = new String(record.getPayload());
-                editText.setText(payload.substring(3));
-
-            }
-        }
-    }
-
-    
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
-    }
-
     private NdefMessage[] getNdefMessages(Intent intent) {
         NdefMessage[] messages = null;
         Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
@@ -104,6 +83,50 @@ public class MainActivity extends AppCompatActivity {
         }
         return messages;
     }
+
+    private void handleNfcIntent(Intent intent) {
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            NdefMessage[] messages = getNdefMessages(intent);
+            if (messages != null && messages.length > 0) {
+                NdefRecord record = messages[0].getRecords()[0];
+                String payload = new String(record.getPayload());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        editText.setText(payload.substring(3));
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        handleNfcIntent(intent);
+        nfcAdapter.enableForegroundDispatch(this, PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE), null, null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleNfcIntent(intent);
+    }
+
+
+
+
+
+
+
+
 
 
     public void startLogs(View v) {
@@ -126,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                 String out_track_number = track_number2.getText().toString();
                 if (id_panal.trim().length() == 10) {
                     String id_deal = Search_deal.search_deal(id_panal);
+                    if (id_deal.trim().length() == 5) {
+
                     if ("Accepted_warehouse".equals(method)) {
                         if (in_track_number.length() == 20) {
                             return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext());
@@ -148,7 +173,12 @@ public class MainActivity extends AppCompatActivity {
                         return Change_stage.Under_repair(id_deal, id_panal, getApplicationContext());
                     }
 
+                    }else {
+                        logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некоректный номер сделки");
+                        return "Некорректный номер сделки";
+                    }
                 }
+
                 return "Введите корректный номер панели ";
             }
 
@@ -167,6 +197,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-
-
-

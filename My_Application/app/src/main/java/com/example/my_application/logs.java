@@ -20,17 +20,15 @@ public class logs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logs);
-
         log = findViewById(R.id.textView2);
-
 
         try (BufferedReader reader = new BufferedReader(new FileReader(getFilesDir() + "/logs.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                log.append(line);
+                log.append(line + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Ошибка при чтении данных из файла: " + e.getMessage());
+            //System.out.println("Ошибка при чтении данных из файла: " + e.getMessage());
         }
     }
 

@@ -34,7 +34,7 @@ public class Change_stage {
 
         try {
             // URL и JSON-запрос
-            String url = "https://sputniksystems.bitrix24.ru/rest/879/hpyrfpxem514tmr4/crm.deal.update.json";
+            String url = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.update.json";
             String json = "{\"id\": " + id_deal + ", \"fields\": {\"STAGE_ID\": \"" + id_stage + "\"}}";
 
             // Создание запроса POST
@@ -68,7 +68,7 @@ public class Change_stage {
         String status = "";
         try {
             // URL для получения JSON
-            String urlString = "https://sputniksystems.bitrix24.ru/rest/879/igjz3ay62dj3ppzo/crm.deal.get.json?id=" + id_deal;
+            String urlString = "https://sputniksystems.bitrix24.ru/rest/161/l93zfoeri1pzz656/crm.deal.get.json?id=" + id_deal;
 
             // Создание объекта URL
             URL url = new URL(urlString);
