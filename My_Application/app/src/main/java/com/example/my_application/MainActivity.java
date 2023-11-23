@@ -72,6 +72,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        Button To_check = findViewById(R.id.To_check);
+        To_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Change_stage("To_check");
+            }
+        });
+
+
+
+
+
     }
 
     @Override
@@ -158,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if ("Under_repair".equals(method)) {
                         return Change_stage.Under_repair(id_deal, id_panal, getApplicationContext());
+                    }
+
+                    if ("To_check".equals(method)){
+                        return Change_stage.To_check(id_deal, id_panal, getApplicationContext());
                     }
 
                     }else {

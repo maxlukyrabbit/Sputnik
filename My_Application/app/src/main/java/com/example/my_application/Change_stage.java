@@ -138,6 +138,22 @@ public class Change_stage {
 
     }
 
+    public static String To_check(String id_deal, String id_panel, Context context){
+        String err = null;
+        String result = null;
+        String status = status(id_deal);
+
+        if (Objects.equals(status, "C25:EXECUTING") || Objects.equals(status, "C25:1") || Objects.equals(status, "C25:2") || Objects.equals(status, "C25:FINAL_INVOICE") || Objects.equals(status, "C25:7") || Objects.equals(status, "C25:UC_DMZGI5")) {
+            result = Change_stage(id_deal, "C25:FINAL_INVOICE");
+            logsTXT.LogsWriter(context, "Успех:", id_panel, "в проверке");
+        } else {
+            result = "Завка находится в неподходящей стадии " + status;
+            logsTXT.LogsWriter(context, "Ошибка:", id_panel, "этап неподходящий.");
+        }
+
+        return result;
+    }
+
     public static String Done_sending(String id_deal, String out_track_number, String id_panel, Context context) {
         String err = null;
         String result = null;
