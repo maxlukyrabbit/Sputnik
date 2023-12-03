@@ -152,19 +152,21 @@ public class MainActivity extends AppCompatActivity {
                     if (id_deal.trim().length() == 5) {
 
                     if ("Accepted_warehouse".equals(method)) {
-                        if (in_track_number.length() == 20) {
+                        if (in_track_number.length() != 0 && in_track_number.length() <= 20) {
                             return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext());
 
                         } else {
+                            logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
                             return "Введите корректный трек номер";
                         }
 
                     }
 
                     if ("Done_sending".equals(method)) {
-                        if (out_track_number.length() == 20) {
+                        if (out_track_number.length() != 0 && out_track_number.length() <= 20) {
                             return Change_stage.Done_sending(id_deal, out_track_number, id_panal, getApplicationContext());
                         } else {
+                            logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
                             return "Введите корректный трек номер";
                         }
 
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         return "Некорректный номер сделки";
                     }
                 }
-
+                logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный номер панели");
                 return "Введите корректный номер панели ";
             }
 
