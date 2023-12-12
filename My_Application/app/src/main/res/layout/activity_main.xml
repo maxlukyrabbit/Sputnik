@@ -99,12 +99,11 @@
 
         <EditText
             android:id="@+id/track_number1"
-            android:layout_width="285dp"
-            android:layout_height="55dp"
+            android:layout_width="288dp"
+            android:layout_height="46dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="65dp"
+            android:layout_marginTop="6dp"
             android:background="#ffffff"
             android:ems="10"
             android:hint="@string/track_number"
@@ -115,11 +114,11 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="330dp"
-            android:layout_height="65dp"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="77dp"
+            android:layout_marginTop="106dp"
             android:background="@drawable/rectangle_shape"
             android:shadowColor="@color/white"
             android:text="@string/button1"
@@ -132,6 +131,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.346"
             tools:ignore="MissingConstraints" />
+
+        <CheckBox
+            android:id="@+id/Terminal_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="56dp"
+            android:textSize="20dp"
+            android:text="Клемная колодка" />
 
     </RelativeLayout>
 
@@ -230,10 +240,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="7dp"
-            android:textColor="@color/black"
-            android:text="version: 1.2" />
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="1dp"
+            android:text="version: beta 1.3"
+            android:textColor="@color/black" />
 
 
     </RelativeLayout>

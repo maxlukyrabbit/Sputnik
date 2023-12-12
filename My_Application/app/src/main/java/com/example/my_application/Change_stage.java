@@ -111,7 +111,7 @@ public class Change_stage {
         return status;
     }
 
-    public static String Accepted_warehouse(String id_deal, String in_track_number, String id_panel, Context context) {
+    public static String Accepted_warehouse(String id_deal, String in_track_number, String id_panel, Context context, boolean flag, boolean checkBox) {
 
         String err = null;
         String result = null;
@@ -121,10 +121,16 @@ public class Change_stage {
             result = Change_stage(id_deal, "C25:EXECUTING");
             if ("Успех".equals(result))
             {
-                result = change_track_number.change_in_track_number(id_deal, in_track_number);
+                if (flag){
+                    result = change_track_number.change_in_track_number(id_deal, in_track_number);
+                }
 
-
-
+                if (checkBox){
+                    terminal_block.terminal_block(id_deal, "1");
+                }
+                else {
+                    terminal_block.terminal_block(id_deal, "0");
+                }
                 logsTXT.LogsWriter(context, "Успех:", id_panel, "принято на склад");
             }
         } else {
@@ -154,7 +160,7 @@ public class Change_stage {
         return result;
     }
 
-    public static String Done_sending(String id_deal, String out_track_number, String id_panel, Context context) {
+    public static String Done_sending(String id_deal, String out_track_number, String id_panel, Context context, boolean flag) {
         String err = null;
         String result = null;
         String status = status(id_deal);
@@ -163,7 +169,9 @@ public class Change_stage {
             result = (Change_stage(id_deal, "C25:7"));
             if ("Успех".equals(result))
             {
-                result = change_track_number.change_out_track_number(id_deal, out_track_number);
+                if (flag){
+                    result = change_track_number.change_out_track_number(id_deal, out_track_number);
+                }
                 logsTXT.LogsWriter(context, "Успех:", id_panel, "готово к отправке");
             }
 

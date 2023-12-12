@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     @Override
@@ -120,15 +118,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
     public void startLogs(View v) {
         Intent intent = new Intent(this, logs.class);
         startActivity(intent);
@@ -144,42 +133,50 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
+                CheckBox checkBox = findViewById(R.id.Terminal_block);
                 String id_panal = editText.getText().toString();
                 String in_track_number = track_number1.getText().toString();
                 String out_track_number = track_number2.getText().toString();
                 if (id_panal.trim().length() == 10) {
                     String id_deal = Search_deal.search_deal(id_panal);
+
                     if (id_deal.trim().length() == 5) {
 
-                    if ("Accepted_warehouse".equals(method)) {
-                        if (in_track_number.length() != 0 && in_track_number.length() <= 20) {
-                            return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext());
+                        if ("Accepted_warehouse".equals(method)) {
+                            if (in_track_number.length() != 0 && in_track_number.length() <= 20) {
+                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), true, checkBox.isChecked());
 
-                        } else {
-                            logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
-                            return "Введите корректный трек номер";
+                            } else if (in_track_number.length() == 0) {
+                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), false, checkBox.isChecked());
+                            } else {
+                                logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
+                                return "Введите корректный трек номер";
+                            }
+
                         }
 
-                    }
+                        if ("Done_sending".equals(method)) {
+                            if (out_track_number.length() != 0 && out_track_number.length() <= 20) {
+                                return Change_stage.Done_sending(id_deal, out_track_number, id_panal, getApplicationContext(), true);
+                            } else if (out_track_number.length() == 0) {
+                                return Change_stage.Done_sending(id_deal, out_track_number, id_panal, getApplicationContext(), false);
 
-                    if ("Done_sending".equals(method)) {
-                        if (out_track_number.length() != 0 && out_track_number.length() <= 20) {
-                            return Change_stage.Done_sending(id_deal, out_track_number, id_panal, getApplicationContext());
-                        } else {
-                            logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
-                            return "Введите корректный трек номер";
+                            } else {
+                                logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
+                                return "Введите корректный трек номер";
+                            }
+
+                        }
+                        if ("Under_repair".equals(method)) {
+
+                            return Change_stage.Under_repair(id_deal, id_panal, getApplicationContext());
                         }
 
-                    }
-                    if ("Under_repair".equals(method)) {
-                        return Change_stage.Under_repair(id_deal, id_panal, getApplicationContext());
-                    }
+                        if ("To_check".equals(method)) {
+                            return Change_stage.To_check(id_deal, id_panal, getApplicationContext());
+                        }
 
-                    if ("To_check".equals(method)){
-                        return Change_stage.To_check(id_deal, id_panal, getApplicationContext());
-                    }
-
-                    }else {
+                    } else {
                         logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный номер сделки");
                         return "Некорректный номер сделки";
                     }
@@ -203,3 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
+
+//UF_CRM_1693478607504 клемная
