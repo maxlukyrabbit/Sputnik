@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,9 +50,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button button1 = findViewById(R.id.button);
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                int color = ContextCompat.getColor(MainActivity.this, R.color.grey); // Получаем цвет из ресурсов
+//
+//                button1.setBackgroundColor(color);
+
                 Change_stage("Accepted_warehouse");
             }
         });
@@ -84,25 +91,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] messages = getNdefMessages(intent);
-            if (messages != null && messages.length > 0) {
-                NdefRecord record = messages[0].getRecords()[0];
-                String payload = new String(record.getPayload());
-                editText.setText(payload.substring(3));
-            }
-        }
+        setupForegroundDispatch(this, nfcAdapter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        nfcAdapter.disableForegroundDispatch(this);
+        stopForegroundDispatch(MainActivity.this, nfcAdapter);
+    }
+
+    private void setupForegroundDispatch(MainActivity activity, NfcAdapter adapter) {
+        Intent intent = new Intent(activity, activity.getClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        IntentFilter[] filters = new IntentFilter[]{};
+        String[][] techList = new String[][]{};
+
+        adapter.enableForegroundDispatch(activity, pendingIntent, filters, techList);
+    }
+
+    private void stopForegroundDispatch(MainActivity activity, NfcAdapter adapter) {
+        adapter.disableForegroundDispatch(activity);
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+
+        super.onNewIntent(intent);
+        editText.setText(getNdefPayloadString(intent));
+//        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
+//            NdefMessage[] messages = getNdefMessages(intent);
+//
+//            if (messages != null && messages.length > 0) {
+//                NdefRecord record = messages[0].getRecords()[0];
+//                String payload = new String(record.getPayload());
+//                editText.setText(payload.substring(3));
+//            }
+//        }
     }
 
     private NdefMessage[] getNdefMessages(Intent intent) {
@@ -115,6 +144,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return messages;
+    }
+
+    public String getNdefPayloadString(Intent intent) {
+        String payloadString = "";
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
+            NdefMessage[] messages = getNdefMessages(intent);
+            if (messages != null && messages.length > 0) {
+                NdefRecord record = messages[0].getRecords()[0];
+                payloadString = new String(record.getPayload()).substring(3);
+            }
+        }
+        return payloadString;
     }
 
 

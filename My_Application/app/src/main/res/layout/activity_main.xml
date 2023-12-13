@@ -120,6 +120,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="106dp"
             android:background="@drawable/rectangle_shape"
+            android:radius="90dp"
             android:shadowColor="@color/white"
             android:text="@string/button1"
             android:textColor="@color/black"

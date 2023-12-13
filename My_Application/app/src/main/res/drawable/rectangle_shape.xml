@@ -1,4 +1,3 @@
    <shape xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="@color/button" /> <!-- Замените "your_color" на цвет вашего выбора -->
-        <corners android:radius="9dp" /> <!-- Установите радиус закругления в 0dp -->
+        <corners android:radius="8dp" />
     </shape>
