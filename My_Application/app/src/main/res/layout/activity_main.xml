@@ -20,6 +20,8 @@
 
         <EditText
             android:id="@+id/editTextText"
+            android:textSize="20dp"
+            android:gravity="center"
             android:layout_width="285dp"
             android:layout_height="55dp"
             android:layout_alignParentTop="true"
@@ -106,6 +108,8 @@
             android:layout_marginTop="6dp"
             android:background="#ffffff"
             android:ems="10"
+            android:textSize="20dp"
+            android:gravity="center"
             android:hint="@string/track_number"
             android:inputType="text"
             android:textAlignment="center"
@@ -114,12 +118,13 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="329dp"
-            android:layout_height="wrap_content"
+            android:layout_width="330dp"
+            android:layout_height="44dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="106dp"
             android:background="@drawable/rectangle_shape"
+            android:gravity="center"
             android:radius="90dp"
             android:shadowColor="@color/white"
             android:text="@string/button1"
@@ -141,8 +146,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="40dp"
             android:layout_marginTop="56dp"
-            android:textSize="20dp"
-            android:text="Клемная колодка" />
+            android:textSize="24dp"
+
+            android:text="Клемная колодка"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 
@@ -158,6 +165,7 @@
 
         <Button
             android:id="@+id/Repair"
+            android:gravity="center"
             android:layout_width="330dp"
             android:layout_height="65dp"
             android:layout_centerHorizontal="true"
@@ -190,7 +198,8 @@
             android:background="@drawable/rectangle_shape"
             android:text="@string/To_check"
             android:textColor="@color/black"
-            android:textSize="24dp" />
+            android:textSize="24dp"
+            android:gravity="center"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -205,6 +214,7 @@
 
         <Button
             android:id="@+id/Logs"
+            android:gravity="center"
             android:layout_width="105dp"
             android:layout_height="62dp"
             android:layout_alignParentTop="true"
@@ -243,7 +253,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="3dp"
             android:layout_marginBottom="1dp"
-            android:text="version: beta 1.3"
+            android:text="version: 1.4.3"
             android:textColor="@color/black" />
 
 
@@ -261,6 +271,8 @@
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="@color/black"
+        android:textSize="20dp"
+        android:gravity="center"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -270,7 +282,7 @@
         android:id="@+id/button2"
         android:layout_width="330dp"
         android:layout_height="65dp"
-
+        android:gravity="center"
         android:layout_marginTop="4dp"
 
         android:background="@drawable/rectangle_shape"

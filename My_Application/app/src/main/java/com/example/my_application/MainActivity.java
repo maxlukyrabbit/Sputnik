@@ -1,9 +1,12 @@
 package com.example.my_application;
 
+import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -22,17 +25,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.base.Charsets;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
+    private boolean isFirstTime = true;
 
     private NfcAdapter nfcAdapter;
     private EditText editText, track_number1, track_number2;
     private TextView ID, Status;
+    public Button button1, button2, Repair, To_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(MainActivity.this);
         if (nfcAdapter == null) {
@@ -41,121 +49,100 @@ public class MainActivity extends AppCompatActivity {
         }
 
         editText = findViewById(R.id.editTextText);
+
         track_number1 = findViewById(R.id.track_number1);
         track_number2 = findViewById(R.id.track_number2);
+
+//        String savedValue = MyPreferences.getEditTextValue(this);
+//        track_number1.setText(savedValue);
 
 
         ID = findViewById(R.id.ID);
         Status = findViewById(R.id.Status);
 
 
-        Button button1 = findViewById(R.id.button);
+        button1 = findViewById(R.id.button);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                int color = ContextCompat.getColor(MainActivity.this, R.color.grey); // Получаем цвет из ресурсов
-//
-//                button1.setBackgroundColor(color);
-
+                button1.setBackgroundResource(R.drawable.rectangle_shape_false);
+                button1.setEnabled(false);
                 Change_stage("Accepted_warehouse");
             }
         });
 
-        Button button2 = findViewById(R.id.button2);
+        button2 = findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                button2.setBackgroundResource(R.drawable.rectangle_shape_false);
+                button2.setEnabled(false);
                 Change_stage("Done_sending");
             }
         });
 
-        Button Repair = findViewById(R.id.Repair);
+        Repair = findViewById(R.id.Repair);
         Repair.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                Repair.setBackgroundResource(R.drawable.rectangle_shape_false);
+                Repair.setEnabled(false);
                 Change_stage("Under_repair");
             }
         });
 
 
-        Button To_check = findViewById(R.id.To_check);
+        To_check = findViewById(R.id.To_check);
         To_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                To_check.setBackgroundResource(R.drawable.rectangle_shape_false);
+                To_check.setEnabled(false);
                 Change_stage("To_check");
             }
         });
 
 
     }
+
+
     @Override
     protected void onResume() {
         super.onResume();
-        setupForegroundDispatch(this, nfcAdapter);
+
+        Intent intent = getIntent();
+        if (isFirstTime) {
+            processNdefIntent(intent);
+            isFirstTime = false;
+        }
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        processNdefIntent(intent);
+    }
+
 
     @Override
     protected void onPause() {
         super.onPause();
-        stopForegroundDispatch(MainActivity.this, nfcAdapter);
     }
 
-    private void setupForegroundDispatch(MainActivity activity, NfcAdapter adapter) {
-        Intent intent = new Intent(activity, activity.getClass());
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_IMMUTABLE);
-        IntentFilter[] filters = new IntentFilter[]{};
-        String[][] techList = new String[][]{};
-
-        adapter.enableForegroundDispatch(activity, pendingIntent, filters, techList);
-    }
-
-    private void stopForegroundDispatch(MainActivity activity, NfcAdapter adapter) {
-        adapter.disableForegroundDispatch(activity);
-    }
-
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-
-        super.onNewIntent(intent);
-        editText.setText(getNdefPayloadString(intent));
-//        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-//            NdefMessage[] messages = getNdefMessages(intent);
-//
-//            if (messages != null && messages.length > 0) {
-//                NdefRecord record = messages[0].getRecords()[0];
-//                String payload = new String(record.getPayload());
-//                editText.setText(payload.substring(3));
-//            }
-//        }
-    }
-
-    private NdefMessage[] getNdefMessages(Intent intent) {
-        NdefMessage[] messages = null;
-        Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        if (rawMessages != null && rawMessages.length > 0) {
-            messages = new NdefMessage[rawMessages.length];
-            for (int i = 0; i < rawMessages.length; i++) {
-                messages[i] = (NdefMessage) rawMessages[i];
+    private void processNdefIntent(Intent intent) {
+        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if (rawMsgs != null) {
+            NdefMessage ndefMessage = (NdefMessage) rawMsgs[0];
+            NdefRecord[] records = ndefMessage.getRecords();
+            if (records.length > 0) {
+                NdefRecord record = records[0];
+                String payload = new String(record.getPayload());
+                editText.setText(payload.substring(3)); // Установка полученных данных в EditText
             }
         }
-        return messages;
-    }
-
-    public String getNdefPayloadString(Intent intent) {
-        String payloadString = "";
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] messages = getNdefMessages(intent);
-            if (messages != null && messages.length > 0) {
-                NdefRecord record = messages[0].getRecords()[0];
-                payloadString = new String(record.getPayload()).substring(3);
-            }
-        }
-        return payloadString;
     }
 
 
@@ -163,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, logs.class);
         startActivity(intent);
     }
+
 
     public void Change_stage(String method) {
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
@@ -193,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                                 logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
                                 return "Введите корректный трек номер";
                             }
-
                         }
 
                         if ("Done_sending".equals(method)) {
@@ -235,8 +222,19 @@ public class MainActivity extends AppCompatActivity {
                     Status.setText("Ошибка");
                 }
                 Toast.makeText(MainActivity.this, result, Toast.LENGTH_LONG).show();
+
+                button1.setBackgroundResource(R.drawable.rectangle_shape);
+                button2.setBackgroundResource(R.drawable.rectangle_shape);
+                Repair.setBackgroundResource(R.drawable.rectangle_shape);
+                To_check.setBackgroundResource(R.drawable.rectangle_shape);
+
+                button1.setEnabled(true);
+                button2.setEnabled(true);
+                Repair.setEnabled(true);
+                To_check.setEnabled(true);
             }
         }.execute();
+//        button1.setVisibility(View.VISIBLE);
     }
 
 

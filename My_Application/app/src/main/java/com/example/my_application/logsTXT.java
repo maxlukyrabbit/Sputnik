@@ -2,8 +2,12 @@ package com.example.my_application;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -19,11 +23,24 @@ public class logsTXT {
         String data = String.format("%s %s - %s %s %s%s", Date, Time, Status, ID, Explanation, System.lineSeparator());
 
         try {
-            FileWriter writer = new FileWriter(context.getFilesDir() + "/logs.txt", true);
+            File file = new File(context.getFilesDir(), "logs.txt");
+            FileInputStream fis = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+            StringBuilder sb = new StringBuilder();
+            String line = reader.readLine();
+            while (line != null) {
+                sb.append(line).append("\n");
+                line = reader.readLine();
+            }
+            reader.close();
+            fis.close();
+
+            FileWriter writer = new FileWriter(file);
             writer.write(data);
+            writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("Ошибка при записи данных в файл: " + e.getMessage());
+            System.out.println("Error writing data to file: " + e.getMessage());
         }
     }
 }

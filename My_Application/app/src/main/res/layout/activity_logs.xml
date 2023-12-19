@@ -14,6 +14,8 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:onClick="startMain"
+
+        android:background="@drawable/rectangle_shape"
         android:text="Назад"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,6 +33,7 @@
         android:onClick="clearLogs"
         android:text="Очистить логи"
         android:textColor="@color/black"
+        android:background="@drawable/rectangle_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.933"
