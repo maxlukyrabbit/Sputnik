@@ -15,6 +15,8 @@ import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +29,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.base.Charsets;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText, track_number1, track_number2;
     private TextView ID, Status;
     public Button button1, button2, Repair, To_check;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +53,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+
+
+
         editText = findViewById(R.id.editTextText);
 
         track_number1 = findViewById(R.id.track_number1);
         track_number2 = findViewById(R.id.track_number2);
-
-//        String savedValue = MyPreferences.getEditTextValue(this);
-//        track_number1.setText(savedValue);
-
+        track_number1.addTextChangedListener(track_number1_1);
+        track_number2.addTextChangedListener(track_number2_2);
+        track_number1.setText(get_rack_number("/track_number1.txt"));
+        track_number2.setText(get_rack_number("/track_number2.txt"));
 
         ID = findViewById(R.id.ID);
         Status = findViewById(R.id.Status);
 
-
         button1 = findViewById(R.id.button);
-
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         To_check = findViewById(R.id.To_check);
         To_check.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,46 +110,84 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
+    TextWatcher track_number1_1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // Вызывается перед изменением текста
+//            logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
+//            Toast.makeText(MainActivity.this, "Запись прошла", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Вызывается во время изменения текста
+                logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // Вызывается после изменения текста
+//            logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
+//            Toast.makeText(MainActivity.this, "Запись прошла", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    TextWatcher track_number2_2 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // Вызывается перед изменением текста
+
+//            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Вызывается во время изменения текста
+            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+//            // Вызывается после изменения текста
+//            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
+        }
+    };
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
         Intent intent = getIntent();
-        if (isFirstTime) {
-            processNdefIntent(intent);
-            isFirstTime = false;
-        }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        processNdefIntent(intent);
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    private void processNdefIntent(Intent intent) {
-        Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        if (rawMsgs != null) {
-            NdefMessage ndefMessage = (NdefMessage) rawMsgs[0];
-            NdefRecord[] records = ndefMessage.getRecords();
-            if (records.length > 0) {
-                NdefRecord record = records[0];
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            NdefMessage[] messages = getNdefMessages(intent);
+            if (messages != null && messages.length > 0) {
+                NdefRecord record = messages[0].getRecords()[0];
                 String payload = new String(record.getPayload());
-                editText.setText(payload.substring(3)); // Установка полученных данных в EditText
+                editText.setText(payload.substring(3));
             }
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    private NdefMessage[] getNdefMessages(Intent intent) {
+        NdefMessage[] messages = null;
+        Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        if (rawMessages != null && rawMessages.length > 0) {
+            messages = new NdefMessage[rawMessages.length];
+            for (int i = 0; i < rawMessages.length; i++) {
+                messages[i] = (NdefMessage) rawMessages[i];
+            }
+        }
+        return messages;
+    }
 
     public void startLogs(View v) {
         Intent intent = new Intent(this, logs.class);
@@ -234,7 +277,17 @@ public class MainActivity extends AppCompatActivity {
                 To_check.setEnabled(true);
             }
         }.execute();
-//        button1.setVisibility(View.VISIBLE);
+    }
+
+    public String get_rack_number(String name_file) {
+        String track_number = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader(getFilesDir() + name_file))) {
+            track_number = reader.readLine();
+
+        } catch (IOException e) {
+            //System.out.println("Ошибка при чтении данных из файла: " + e.getMessage());
+        }
+        return track_number;
     }
 
 
