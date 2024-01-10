@@ -253,7 +253,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="3dp"
             android:layout_marginBottom="1dp"
-            android:text="version: 1.4.3"
+            android:text="version: 1.5"
             android:textColor="@color/black" />
 
 

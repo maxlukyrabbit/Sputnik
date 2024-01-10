@@ -1,6 +1,7 @@
 package com.example.my_application;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,6 +39,31 @@ public class logsTXT {
             FileWriter writer = new FileWriter(file);
             writer.write(data);
             writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing data to file: " + e.getMessage());
+        }
+    }
+
+    public static void track_number1(Context context, String track_number1) {
+        try {
+            File file = new File(context.getFilesDir(), "track_number1.txt");
+            FileWriter writer = new FileWriter(file, false);
+
+            writer.write(track_number1);
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing data to file: " + e.getMessage());
+        }
+    }
+
+    public static void track_number2(Context context, String track_number2) {
+        try {
+            File file = new File(context.getFilesDir(), "track_number2.txt");
+            FileWriter writer = new FileWriter(file, false);
+            writer.write(track_number2);
+
             writer.close();
         } catch (IOException e) {
             System.out.println("Error writing data to file: " + e.getMessage());
