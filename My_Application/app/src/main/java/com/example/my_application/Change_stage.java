@@ -111,7 +111,7 @@ public class Change_stage {
         return status;
     }
 
-    public static String Accepted_warehouse(String id_deal, String in_track_number, String id_panel, Context context, boolean flag, boolean checkBox) {
+    public static String Accepted_warehouse(String id_deal, String in_track_number, String id_panel, Context context, boolean flag, boolean checkBox, String date) {
 
         String err = null;
         String result = null;
@@ -130,6 +130,9 @@ public class Change_stage {
                 }
                 else {
                     terminal_block.terminal_block(id_deal, "0");
+                }
+                if (date.length() != 0){
+                    changing_date_receipt.changing_date(id_deal, date);
                 }
                 logsTXT.LogsWriter(context, "Успех:", id_panel, "принято на склад");
             }

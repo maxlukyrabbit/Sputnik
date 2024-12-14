@@ -1,6 +1,7 @@
 package com.example.my_application;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +35,16 @@ import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.base.C
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private boolean isFirstTime = true;
 
     private NfcAdapter nfcAdapter;
     private EditText editText, track_number1, track_number2;
-    private TextView ID, Status;
+    private TextView ID, Status, date_text;
     public Button button1, button2, Repair, To_check;
+    public ImageButton calendar_button;
 
 
     @Override
@@ -107,6 +112,28 @@ public class MainActivity extends AppCompatActivity {
                 To_check.setBackgroundResource(R.drawable.rectangle_shape_false);
                 To_check.setEnabled(false);
                 Change_stage("To_check");
+            }
+        });
+
+        date_text = findViewById(R.id.date_text);
+        calendar_button = findViewById(R.id.calendar_button);
+        calendar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                String selectedDate = String.format("%02d.%02d.%d", dayOfMonth, (month + 1), year);
+                                date_text.setText(selectedDate);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
         });
 
@@ -216,10 +243,10 @@ public class MainActivity extends AppCompatActivity {
 
                         if ("Accepted_warehouse".equals(method)) {
                             if (in_track_number.length() != 0 && in_track_number.length() <= 20) {
-                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), true, checkBox.isChecked());
+                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), true, checkBox.isChecked(), date_text.getText().toString());
 
                             } else if (in_track_number.length() == 0) {
-                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), false, checkBox.isChecked());
+                                return Change_stage.Accepted_warehouse(id_deal, in_track_number, id_panal, getApplicationContext(), false, checkBox.isChecked(), date_text.getText().toString());
                             } else {
                                 logsTXT.LogsWriter(getApplicationContext(), "ошибка:", id_panal, "некорректный трек номер");
                                 return "Введите корректный трек номер";
@@ -290,6 +317,10 @@ public class MainActivity extends AppCompatActivity {
         return track_number;
     }
 
+
+    public void clean_date(View v){
+        date_text.setText("");
+    }
 
 }
 

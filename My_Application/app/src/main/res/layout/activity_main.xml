@@ -7,294 +7,332 @@
     android:background="#A5A5A5"
     tools:context=".MainActivity">
 
-
-    <RelativeLayout
-        android:id="@+id/firsit"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:background="#424242"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.727"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:layout_width="285dp"
-            android:layout_height="55dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:background="#ffffff"
-            android:elegantTextHeight="false"
-            android:ems="10"
-            android:hint="@string/text"
-            android:inputType="number"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.515"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="70dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="62dp"
-            android:layout_marginTop="85dp"
-            android:text="Статус:"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.19"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/firsit"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                android:background="#424242"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.727"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/editTextText"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:layout_width="285dp"
+                    android:layout_height="55dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:background="#ffffff"
+                    android:elegantTextHeight="false"
+                    android:ems="10"
+                    android:hint="@string/text"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.515"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="62dp"
+                    android:layout_marginTop="85dp"
+                    android:text="Статус:"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.19"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
 
-        <TextView
-            android:id="@+id/Status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="86dp"
-            android:layout_toEndOf="@+id/ID"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.16"
-            app:layout_constraintStart_toEndOf="@+id/ID"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+                <TextView
+                    android:id="@+id/Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="86dp"
+                    android:layout_toEndOf="@+id/ID"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.16"
+                    app:layout_constraintStart_toEndOf="@+id/ID"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
-        <TextView
-            android:id="@+id/ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="7dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="7dp"
 
-            android:layout_marginTop="85dp"
-            android:layout_toEndOf="@+id/textView5"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+                    android:layout_marginTop="85dp"
+                    android:layout_toEndOf="@+id/textView5"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
+            <RelativeLayout
 
-        android:id="@+id/second"
-        android:layout_width="match_parent"
-        android:layout_height="165dp"
-        android:background="#5B5B5B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firsit">
-
-
-        <EditText
-            android:id="@+id/track_number1"
-            android:layout_width="288dp"
-            android:layout_height="46dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="6dp"
-            android:background="#ffffff"
-            android:ems="10"
-            android:textSize="20dp"
-            android:gravity="center"
-            android:hint="@string/track_number"
-            android:inputType="text"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="330dp"
-            android:layout_height="44dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="106dp"
-            android:background="@drawable/rectangle_shape"
-            android:gravity="center"
-            android:radius="90dp"
-            android:shadowColor="@color/white"
-            android:text="@string/button1"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.518"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.346"
-            tools:ignore="MissingConstraints" />
-
-        <CheckBox
-            android:id="@+id/Terminal_block"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="56dp"
-            android:textSize="24dp"
-
-            android:text="Клемная колодка"
-            android:textStyle="bold"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/Third"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:background="#7D7D7D"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second">
+                android:id="@+id/second"
+                android:layout_width="match_parent"
+                android:layout_height="235dp"
+                android:background="#5B5B5B"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firsit">
 
 
-        <Button
-            android:id="@+id/Repair"
-            android:gravity="center"
-            android:layout_width="330dp"
-            android:layout_height="65dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rectangle_shape"
-            android:text="@string/Repair"
-            android:textColor="@color/black"
-            android:textSize="24dp" />
+                <ImageButton
+                    android:id="@+id/calendar_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Terminal_block"
+                    android:layout_marginStart="-260dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/Terminal_block"
+                    app:srcCompat="@drawable/baseline_calendar_month_24_new" />
+
+                <ImageButton
+                    android:id="@+id/clear_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Terminal_block"
+                    android:layout_marginStart="-215dp"
+                    android:layout_marginTop="5dp"
+                    android:onClick="clean_date"
+                    android:layout_toEndOf="@+id/Terminal_block"
+                    app:srcCompat="@drawable/baseline_cleaning_services_24" />
+
+                <EditText
+                    android:id="@+id/track_number1"
+                    android:layout_width="288dp"
+                    android:layout_height="46dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:background="#ffffff"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="@string/track_number"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="330dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="150dp"
+                    android:background="@drawable/rectangle_shape"
+                    android:gravity="center"
+                    android:radius="90dp"
+                    android:shadowColor="@color/white"
+                    android:text="@string/button1"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.518"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.346"
+                    tools:ignore="MissingConstraints" />
+
+                <CheckBox
+                    android:id="@+id/Terminal_block"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="59dp"
+                    android:text="Клемная колодка"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Terminal_block"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_toEndOf="@+id/calendar_button"
+
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Third"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                android:background="#7D7D7D"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/second">
 
 
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/Repair"
+                    android:gravity="center"
+                    android:layout_width="330dp"
+                    android:layout_height="65dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rectangle_shape"
+                    android:text="@string/Repair"
+                    android:textColor="@color/black"
+                    android:textSize="24dp" />
 
 
-    <RelativeLayout
-        android:id="@+id/sixth"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:layout_marginTop="0dp"
-        android:background="#979aaa"
-        app:layout_constraintTop_toBottomOf="@+id/Third"
-        tools:layout_editor_absoluteX="0dp">
+            </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/To_check"
-            android:layout_width="330dp"
-            android:layout_height="65dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rectangle_shape"
-            android:text="@string/To_check"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            android:gravity="center"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/fifth"
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:background="#CFCFCF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/Logs"
-            android:gravity="center"
-            android:layout_width="105dp"
-            android:layout_height="62dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="9dp"
-            android:background="@drawable/rectangle_shape"
-
-            android:onClick="startLogs"
-            android:text="Логи"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="246dp"
-            android:layout_height="64dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="11dp"
-            android:text="@string/NFC_inf"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.038"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="3dp"
-            android:layout_marginBottom="1dp"
-            android:text="version: 1.5"
-            android:textColor="@color/black" />
+            <RelativeLayout
+                android:id="@+id/sixth"
+                android:layout_width="match_parent"
+                android:layout_height="115dp"
+                android:layout_marginTop="0dp"
+                android:background="#979aaa"
+                app:layout_constraintTop_toBottomOf="@+id/Third"
+                tools:layout_editor_absoluteX="0dp">
 
 
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/To_check"
+                    android:layout_width="330dp"
+                    android:layout_height="65dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/rectangle_shape"
+                    android:text="@string/To_check"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    android:gravity="center"/>
+            </RelativeLayout>
 
-    <EditText
-        android:id="@+id/track_number2"
-        android:layout_width="285dp"
-        android:layout_height="55dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="#ffffff"
-        android:ems="10"
-        android:hint="@string/track_number"
-        android:inputType="text"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sixth" />
+            <RelativeLayout
+                android:id="@+id/fifth"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:background="#CFCFCF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="330dp"
-        android:layout_height="65dp"
-        android:gravity="center"
-        android:layout_marginTop="4dp"
 
-        android:background="@drawable/rectangle_shape"
-        android:text="@string/button2"
-        android:textColor="@color/black"
+                <EditText
+                    android:id="@+id/track_number2"
+                    android:layout_width="285dp"
+                    android:layout_height="55dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:background="#ffffff"
+                    android:ems="10"
+                    android:hint="@string/track_number"
+                    android:inputType="text"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:textColorHint="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/track_number2"
-        tools:ignore="MissingConstraints" />
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="330dp"
+                    android:layout_height="65dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="80dp"
+                    android:background="@drawable/rectangle_shape"
+                    android:gravity="center"
+                    android:text="@string/button2"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/track_number2"
+                    tools:ignore="MissingConstraints" />
+
+
+            </RelativeLayout>
+
+
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@drawable/rectangle_shape"
+                android:gravity="center"
+                android:text="@string/logs"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.493"
+                app:layout_constraintStart_toStartOf="parent"
+
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/NFC_inf"
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/version" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
