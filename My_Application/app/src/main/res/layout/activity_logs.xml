@@ -14,7 +14,6 @@
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:onClick="startMain"
-
         android:background="@drawable/rectangle_shape"
         android:text="Назад"
         android:textColor="@color/black"

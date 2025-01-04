@@ -298,7 +298,7 @@
                 android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:onClick="startLogs"
                 android:background="@drawable/rectangle_shape"
                 android:gravity="center"
                 android:text="@string/logs"

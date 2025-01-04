@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    private boolean isFirstTime = true;
 
     private NfcAdapter nfcAdapter;
     private EditText editText, track_number1, track_number2;
@@ -51,30 +50,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         nfcAdapter = NfcAdapter.getDefaultAdapter(MainActivity.this);
         if (nfcAdapter == null) {
             Toast.makeText(MainActivity.this, "NFC is not available", Toast.LENGTH_LONG).show();
             return;
         }
-
-
-
-
+        handleIntent(getIntent());
         editText = findViewById(R.id.editTextText);
-
         track_number1 = findViewById(R.id.track_number1);
         track_number2 = findViewById(R.id.track_number2);
-        track_number1.addTextChangedListener(track_number1_1);
-        track_number2.addTextChangedListener(track_number2_2);
-        track_number1.setText(get_rack_number("/track_number1.txt"));
-        track_number2.setText(get_rack_number("/track_number2.txt"));
-
         ID = findViewById(R.id.ID);
         Status = findViewById(R.id.Status);
-
         button1 = findViewById(R.id.button);
-
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,55 +126,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    TextWatcher track_number1_1 = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Вызывается перед изменением текста
-//            logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
-//            Toast.makeText(MainActivity.this, "Запись прошла", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Вызывается во время изменения текста
-            logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            // Вызывается после изменения текста
-//            logsTXT.track_number1(getApplicationContext(), track_number1.getText().toString());
-//            Toast.makeText(MainActivity.this, "Запись прошла", Toast.LENGTH_LONG).show();
-        }
-    };
-
-    TextWatcher track_number2_2 = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // Вызывается перед изменением текста
-
-//            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // Вызывается во время изменения текста
-            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-//            // Вызывается после изменения текста
-//            logsTXT.track_number2(getApplicationContext(), track_number2.getText().toString());
-        }
-    };
-
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             NdefMessage[] messages = getNdefMessages(intent);
             if (messages != null && messages.length > 0) {
@@ -199,8 +144,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        enableForegroundDispatch();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
+        disableForegroundDispatch();
+    }
+
+    private void enableForegroundDispatch() {
+        Intent intent = new Intent(this, getClass());
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE);
+        IntentFilter[] intentFilters = new IntentFilter[]{new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)};
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, intentFilters, null);
+    }
+
+    private void disableForegroundDispatch() {
         nfcAdapter.disableForegroundDispatch(this);
     }
 
@@ -306,16 +269,7 @@ public class MainActivity extends AppCompatActivity {
         }.execute();
     }
 
-    public String get_rack_number(String name_file) {
-        String track_number = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader(getFilesDir() + name_file))) {
-            track_number = reader.readLine();
 
-        } catch (IOException e) {
-            //System.out.println("Ошибка при чтении данных из файла: " + e.getMessage());
-        }
-        return track_number;
-    }
 
 
     public void clean_date(View v){
@@ -324,5 +278,5 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-
 //UF_CRM_1693478607504 клемная
+
