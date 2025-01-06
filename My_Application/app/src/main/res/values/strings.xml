@@ -10,6 +10,8 @@
     <string name="To_check">В проверку</string>
     <string name="Repair">В ремонте</string>
     <string name="logs">Логи</string>
+    <string name="STK">STK</string>
+    <string name="SK_Warranty">SK-Warranty</string>
     <string name="version"> version 1.7</string>
 
 </resources>
