@@ -129,16 +129,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        handleIntent(intent);
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            handleIntent(intent); // обработка данных NFC
+        }
     }
 
     private void handleIntent(Intent intent) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            NdefMessage[] messages = getNdefMessages(intent);
-            if (messages != null && messages.length > 0) {
-                NdefRecord record = messages[0].getRecords()[0];
-                String payload = new String(record.getPayload());
-                editText.setText(payload.substring(3));
+        NdefMessage[] messages = getNdefMessages(intent);
+        if (messages != null && messages.length > 0) {
+            NdefRecord record = messages[0].getRecords()[0];
+            String payload = new String(record.getPayload());
+//aaaaaaaaaa
+            // Обработка данных метки
+            if (payload.length() > 3) {
+                Toast.makeText(this, "NFC data: " + payload.substring(3), Toast.LENGTH_SHORT).show();
             }
         }
     }
