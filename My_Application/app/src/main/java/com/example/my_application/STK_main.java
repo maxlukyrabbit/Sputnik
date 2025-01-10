@@ -57,7 +57,7 @@ public class STK_main extends AppCompatActivity {
 
 //        reload_listView();
 //        showInputDialog();
-        handleIntent(getIntent());
+//        handleIntent(getIntent());
     }
 
     public void reload_listView() {

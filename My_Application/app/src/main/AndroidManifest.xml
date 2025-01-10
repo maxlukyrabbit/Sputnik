@@ -22,21 +22,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
 
-        <!-- Main Launcher Activity -->
-        <activity
-            android:name=".menu_selection"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- STK_main Activity -->
+        <!-- STK Main Activity -->
         <activity
             android:name=".STK_main"
-            android:exported="false"
-            android:launchMode="singleTop">
+            android:exported="true"
+            android:launchMode="singleInstance">
+            <!-- Intent Filter for NFC -->
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,27 +35,35 @@
             </intent-filter>
         </activity>
 
-        <!-- Custom ListView Activity -->
+        <!-- Main Activity -->
         <activity
-            android:name=".custom_listView"
-            android:exported="false" />
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleInstance">
+            <!-- Intent Filter for NFC -->
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
 
         <!-- Logs Activity -->
         <activity
             android:name=".logs"
             android:exported="false" />
 
-        <!-- Main Activity -->
+        <!-- Menu Selection Activity -->
         <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:launchMode="singleTop">
+            android:name=".menu_selection"
+            android:exported="true">
+            <!-- Intent Filter for App Launcher -->
             <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="*/*" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
     </application>
+
 </manifest>

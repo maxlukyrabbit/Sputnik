@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         handleIntent(getIntent());
-        editText = findViewById(R.id.editTextText);
+        editText = findViewById(R.id.panel);
         track_number1 = findViewById(R.id.track_number1);
         track_number2 = findViewById(R.id.track_number2);
         ID = findViewById(R.id.ID);
@@ -129,20 +129,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            handleIntent(intent); // обработка данных NFC
-        }
+        handleIntent(intent);
     }
 
     private void handleIntent(Intent intent) {
-        NdefMessage[] messages = getNdefMessages(intent);
-        if (messages != null && messages.length > 0) {
-            NdefRecord record = messages[0].getRecords()[0];
-            String payload = new String(record.getPayload());
-//aaaaaaaaaa
-            // Обработка данных метки
-            if (payload.length() > 3) {
-                Toast.makeText(this, "NFC data: " + payload.substring(3), Toast.LENGTH_SHORT).show();
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
+            NdefMessage[] messages = getNdefMessages(intent);
+            if (messages != null && messages.length > 0) {
+                NdefRecord record = messages[0].getRecords()[0];
+                String payload = new String(record.getPayload());
+                EditText panel = findViewById(R.id.panel);
+                panel.setText(payload.substring(3));
             }
         }
     }
@@ -283,4 +280,3 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //UF_CRM_1693478607504 клемная
-
